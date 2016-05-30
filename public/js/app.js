@@ -3,8 +3,28 @@
 (function(){
   var app = angular.module('gemStore', [ ]);
 
+  app.controller('GalleryController', function(){
+    this.current = 0;
+
+    this.setCurrent = value => {
+      this.current = value || 0;
+    };
+  });
+
   app.controller('StoreController', function(){
     this.products = gems;
+  });
+
+  app.controller('TabController', function(){
+    this.tab = 1;
+
+    this.setTab = (tab) => {
+      this.tab = tab;
+    };
+
+    this.isSet = (tabValue) => {
+      return this.tab === tabValue;
+    };
   });
 
   var gems = [
@@ -82,7 +102,8 @@
         createdOn  :  1397490980837
       }]
     }];
-})();
+  }
+)();
 
 // NOTES:
 // ng-controller='MainController as main'
