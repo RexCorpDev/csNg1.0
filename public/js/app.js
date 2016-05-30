@@ -3,13 +3,6 @@
 (function(){
   var app = angular.module('gemStore', [ ]);
 
-  app.controller('GalleryController', function(){
-    this.current = 0;
-
-    this.setCurrent = value => {
-      this.current = value || 0;
-    };
-  });
 
   app.controller('StoreController', function(){
     this.products = gems;
@@ -22,8 +15,16 @@
       this.tab = tab;
     };
 
-    this.isSet = (tabValue) => {
-      return this.tab === tabValue;
+    this.isSet = (tabName) => {
+      return this.tab === tabName;
+    };
+  });
+
+  app.controller('GalleryController', function(){
+    this.current = 0;
+
+    this.setCurrent = value => {
+      this.current = value || 0;
     };
   });
 
