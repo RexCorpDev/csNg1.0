@@ -3,6 +3,14 @@ body{
   margin: 0 auto;
 }
 
+.ng-valid.ng-dirty {
+  border-color : red;
+}
+
+.ng-valid.ng-dirty {
+  border-color : green;
+}
+
 a {
   color: #ac005f;
 }

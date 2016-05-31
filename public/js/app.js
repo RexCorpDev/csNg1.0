@@ -32,6 +32,7 @@
     this.review = {};
 
     this.addReview = product => {
+      this.review.createdOn = Date.now();
       product.reviews.push(this.review);
       this.review = {};
     };

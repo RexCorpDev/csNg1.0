@@ -7,7 +7,12 @@
   <script src="../bower_components/angular/angular.min.js" charset="utf-8"></script>
   <script src="../js/app.js" charset="utf-8"></script>
 </head>
-<body class='list-group' ng-controller='StoreController as store'>
+<body ng-controller='StoreController as store'>
+  <!-- Store Header -->
+  <header>
+    <h1 class="text-center">Flatlander Crafted Gems</h1>
+    <h2 class="text-center">- an Angular store -</h2>
+  </header>
   <!-- Product Container  -->
   <div class="list-group-item" ng-repeat='product in store.products'>    <!-- Creates border around the entire list -->
     <h3>
@@ -60,26 +65,26 @@
         </ul>
 
         <!-- Review Form -->
-        <form name='reviewForm' ng-controller='ReviewController as reviewCtrl' ng-submit='reviewCtrl.addReview(product)'>
+        <form name='reviewForm' ng-controller='ReviewController as reviewCtrl' ng-submit='reviewForm.$valid && reviewCtrl.addReview(product)' novalidate>
           <!-- Live Preview -->
           <blockquote>
             <strong>{{reviewCtrl.review.stars}} Stars</strong>
               "{{reviewCtrl.review.body}}"
-            <cite class='clearfix'>-{{reviewCtrl.review.author}}</cite>
+            <cite class='clearfix'>-{{reviewCtrl.review.author}} on {{review.createdOn | date}}</cite>
           </blockquote>
 
           <!-- Input Form -->
           <h4>Submit a Review</h4>
           <fieldset class="form-group">
-            <select ng-model='reviewCtrl.review.stars' ng-options='stars for stars in [5,4,3,2,1]'  class="form-control" title="Stars">
+            <select ng-model='reviewCtrl.review.stars' ng-options='stars for stars in [5,4,3,2,1]'  class="form-control" title="Stars" required>
               <option value="">Rate the Product</option>
             </select>
           </fieldset>
           <fieldset class="form-group">
-            <textarea ng-model='reviewCtrl.review.body' placeholder='Write a short review of the product...' class="form-control" title='Review'></textarea>
+            <textarea ng-model='reviewCtrl.review.body' placeholder='Write a short review of the product...' class="form-control" title='Review' required></textarea>
           </fieldset>
           <fieldset class="form-group">
-            <textarea ng-model='reviewCtrl.review.author' type='email' title='Email' placeholder='ClarkKent@example.com' class="form-control"></textarea>
+            <textarea ng-model='reviewCtrl.review.author' type='email' title='Email' placeholder='ClarkKent@example.com' class="form-control" required></textarea>
           </fieldset>
           <fieldset class="form-group">
             <input type='submit' type="text" class="btn btn-primary pull-right" value='Submit Review'>
