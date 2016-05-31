@@ -28,6 +28,15 @@
     };
   });
 
+  app.controller('ReviewController', function(){
+    this.review = {};
+
+    this.addReview = product => {
+      product.reviews.push(this.review);
+      this.review = {};
+    };
+  });
+
   var gems = [
     {
       name        :   'Azurite',
@@ -44,7 +53,7 @@
       ],
       reviews     :   [{
         stars   :   5,
-        body    :   'I love this gem!',
+        body    :   "I love this gem!",
         author  :   'joe@example.org',
         createdOn   :   13974909080837
       }, {
