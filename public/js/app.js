@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-  var app = angular.module('gemStore', [ ]);
+  var app = angular.module('gemStore', []);
 
 
   app.controller('StoreController', function(){
@@ -35,6 +35,13 @@
       this.review.createdOn = Date.now();
       product.reviews.push(this.review);
       this.review = {};
+    };
+  });
+
+  app.directive('productDescription', function(){
+    return {
+      restrict : 'E',
+      templateUrl : 'product-description.html'
     };
   });
 

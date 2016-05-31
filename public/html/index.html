@@ -13,86 +13,92 @@
     <h1 class="text-center">Flatlander Crafted Gems</h1>
     <h2 class="text-center">- an Angular store -</h2>
   </header>
-  <!-- Product Container  -->
-  <div class="list-group-item" ng-repeat='product in store.products'>    <!-- Creates border around the entire list -->
-    <h3>
-      {{product.name}}
-      <em class='pull-right'>{{product.price | currency }}</em>
-    </h3>
 
-    <!-- Image Gallery -->
-    <div ng-controller='GalleryController as gallery' class='gallery' ng-show='product.images.length'>
-      <div class="img-wrap">
-        <img ng-src='{{product.images[gallery.current]}}'/>
-      </div>
-      <ul class="img-thumbnails clearfix">
-        <li ng-repeat='image in product.images' class="small-image pull-left thumbnail">
-          <img ng-src='{{image}}'/>
-        </li>
-      </ul>
-    </div>
+  <!-- Product-S Container  -->
+  <div class="list-group">
+    <!-- Product Contiainer -->
+    <div class="list-group-item" ng-repeat='product in store.products'>    <!-- "list group/ list group item" Creates border around the entire list -->
+      <h3>{{product.name}}<em class='pull-right'>{{product.price | currency }}</em></h3>
 
-    <section ng-controller='TabController as tab' class='tab'>
-      <ul class="nav nav-pills">
-        <li ng-class='{active:tab.isSet(1)}'>
-          <a ng-click='tab.setTab(1)'href>Description</a>
-        </li>
-        <li ng-class='{active:tab.isSet(2)}'>
-          <a ng-click='tab.setTab(2)'href>Specs</a>
-        </li>
-        <li ng-class='{active:tab.isSet(3)}'>
-          <a ng-click='tab.setTab(3)'href>Reviews</a>
-        </li>
-      </ul>
-      <div ng-show='tab.isSet(1)'>
-        <h4>Description</h4>
-        <blockquote>{{product.description}}</blockquote>
+      <!-- Image Gallery -->
+      <div ng-controller='GalleryController as gallery' ng-show='product.images.length'>
+        <div class="img-wrap"> <!-- "img wrap" provide the main gem image centering by manipulating the side margins. -->
+          <img ng-src='{{product.images[gallery.current]}}'/>
+        </div>
+        <ul class="img-thumbnails clearfix"> <!-- clearfix is a "cheat" attribute that automatically fixes any overlapping between child elements. clearfix should be declared inside the parent element. -->
+          <li ng-repeat='image in product.images' class="small-image pull-left thumbnail"> <!-- pull-left typically distorts images, however in this case, the margins were smartly calculated so that when the pull left was implemented the margins would align them together nicely with offset space. -->
+            <img ng-src='{{image}}'/>
+          </li>
+        </ul>
       </div>
-      <div ng-show='tab.isSet(2)'>
-        <h4>Specs</h4>
-        <blockquote>Shine: {{product.shine}} </blockquote>
-      </div>
-      <div ng-show='tab.isSet(3)'>
-        <ul>
-          <h4>Reviews</h4>
-          <li ng-repeat='review in product.reviews'>
-            <blockquote>
-              <strong>{{review.stars}} Stars</strong>
-              "{{review.body}}"
-              <cite class='clearfix'>-{{review.author}}</cite>
-            </blockquote>
+
+      <!-- Product Tabs -->
+      <section ng-controller='TabController as tab' class='tab'>
+        <ul class="nav nav-pills">
+          <li ng-class='{active:tab.isSet(1)}'> <!-- Sets an active class if... -->
+            <a ng-click='tab.setTab(1)'href>Description</a> <!-- Sets the current tab number -->
+          </li>
+          <li ng-class='{active:tab.isSet(2)}'>
+            <a ng-click='tab.setTab(2)'href>Specs</a>
+          </li>
+          <li ng-class='{active:tab.isSet(3)}'>
+            <a ng-click='tab.setTab(3)'href>Reviews</a>
           </li>
         </ul>
 
-        <!-- Review Form -->
-        <form name='reviewForm' ng-controller='ReviewController as reviewCtrl' ng-submit='reviewForm.$valid && reviewCtrl.addReview(product)' novalidate>
-          <!-- Live Preview -->
-          <blockquote>
-            <strong>{{reviewCtrl.review.stars}} Stars</strong>
+        <!-- Description Tab's Content -->
+        <product-description ng-show='tab.isSet(1)'></product-description>
+
+        <!-- Spec Tab's Content -->
+        <div ng-show='tab.isSet(2)'>
+          <h4>Specs</h4>
+          <blockquote>Shine: {{product.shine}} </blockquote>
+        </div>
+
+        <!-- Review Tab's Content -->
+        <div ng-show='tab.isSet(3)'>
+          <ul>
+            <h4>Reviews</h4>
+            <li ng-repeat='review in product.reviews'>
+              <blockquote>
+                <strong>{{review.stars}} Stars</strong>
+                "{{review.body}}"
+                <cite class='clearfix'>-{{review.author}}</cite>
+              </blockquote>
+            </li>
+          </ul>
+
+          <!-- Review Form -->
+          <form name='reviewForm' ng-controller='ReviewController as reviewCtrl' ng-submit='reviewForm.$valid && reviewCtrl.addReview(product)' novalidate>
+            <!-- Live Preview -->
+            <blockquote>
+              <strong>{{reviewCtrl.review.stars}} Stars</strong>
               "{{reviewCtrl.review.body}}"
-            <cite class='clearfix'>-{{reviewCtrl.review.author}} on {{review.createdOn | date}}</cite>
-          </blockquote>
+              <cite class='clearfix'>-{{reviewCtrl.review.author}} on {{review.createdOn | date}}</cite>
+            </blockquote>
 
-          <!-- Input Form -->
-          <h4>Submit a Review</h4>
-          <fieldset class="form-group">
-            <select ng-model='reviewCtrl.review.stars' ng-options='stars for stars in [5,4,3,2,1]'  class="form-control" title="Stars" required>
-              <option value="">Rate the Product</option>
-            </select>
-          </fieldset>
-          <fieldset class="form-group">
-            <textarea ng-model='reviewCtrl.review.body' placeholder='Write a short review of the product...' class="form-control" title='Review' required></textarea>
-          </fieldset>
-          <fieldset class="form-group">
-            <textarea ng-model='reviewCtrl.review.author' type='email' title='Email' placeholder='ClarkKent@example.com' class="form-control" required></textarea>
-          </fieldset>
-          <fieldset class="form-group">
-            <input type='submit' type="text" class="btn btn-primary pull-right" value='Submit Review'>
-          </fieldset>
-        </form>
+            <!-- Input Form -->
+            <h4>Submit a Review</h4>
+            <fieldset class="form-group">
+              <select ng-model='reviewCtrl.review.stars' ng-options='stars for stars in [5,4,3,2,1]'  class="form-control" title="Stars" required>
+                <option value="">Rate the Product</option>
+              </select>
+            </fieldset>
+            <fieldset class="form-group">
+              <textarea ng-model='reviewCtrl.review.body' placeholder='Write a short review of the product...' class="form-control" title='Review' required></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+              <textarea ng-model='reviewCtrl.review.author' type='email' title='Email' placeholder='ClarkKent@example.com' class="form-control" required></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+              <input type='submit' type="text" class="btn btn-primary pull-right" value='Submit Review'>
+            </fieldset>
+          </form>
 
-      </div>
-    </section>
+        </div>
+
+      </section>
+    </div>
 
   </div>
 </body>
