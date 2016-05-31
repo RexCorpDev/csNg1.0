@@ -4,4 +4,4 @@
 
 ## Description
 
-This is a practice app for exploring angular workflows. All images are copyright of codeschool.com and use with their permission.  
+This is a practice app for exploring angular workflows. All images are copyright of codeschool.com and used with their permission.  
