@@ -8,21 +8,17 @@
     this.products = gems;
   });
 
-  app.controller('GalleryController', function(){
-    this.current = 0;
-
-    this.setCurrent = value => {
-      this.current = value || 0;
-    };
-  });
-
-  app.controller('ReviewController', function(){
-    this.review = {};
-
-    this.addReview = product => {
-      this.review.createdOn = Date.now();
-      product.reviews.push(this.review);
-      this.review = {};
+  app.directive('productGallery', function(){
+    return {
+      restrict    :   'E',
+      templateUrl :   'product-gallery.html',
+      controller(){
+        this.current = 0;
+        this.setCurrent = value => {
+          this.current = value || 0;
+        };
+      },
+      controllerAs:   'gallery'
     };
   });
 
@@ -37,6 +33,16 @@
     return {
       restrict    :   'A',
       templateUrl :   'product-specs.html'
+    };
+  });
+
+  app.controller('ReviewController', function(){
+    this.review = {};
+
+    this.addReview = product => {
+      this.review.createdOn = Date.now();
+      product.reviews.push(this.review);
+      this.review = {};
     };
   });
 

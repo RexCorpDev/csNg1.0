@@ -1,0 +1,10 @@
+<div ng-show='product.images.length'>
+  <div class="img-wrap"> <!-- "img wrap" provide the main gem image centering by manipulating the side margins. -->
+    <img ng-src='{{product.images[gallery.current]}}'/>
+  </div>
+  <ul class="img-thumbnails clearfix"> <!-- clearfix is a "cheat" attribute that automatically fixes any overlapping between child elements. clearfix should be declared inside the parent element. -->
+    <li ng-repeat='image in product.images' class="small-image pull-left thumbnail"> <!-- pull-left typically distorts images, however in this case, the margins were smartly calculated so that when the pull left was implemented the margins would align them together nicely with offset space. -->
+      <img ng-src='{{image}}'/>
+    </li>
+  </ul>
+</div>
